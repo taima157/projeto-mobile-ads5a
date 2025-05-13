@@ -35,23 +35,13 @@ class HomeFragment : Fragment() {
         recipeListView.layoutManager = LinearLayoutManager(requireContext())
         recipeListView.adapter = adapter
 
-        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-
-        recipeListView = view.findViewById(R.id.recipeListView)
-        searchInput = view.findViewById(R.id.searchInput)
-        searchIcon = view.findViewById(R.id.searchIcon)
-
-        adapter = RecipeAdapter()
-        recipeListView.layoutManager = LinearLayoutManager(requireContext())
-        recipeListView.adapter = adapter
-
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         viewModel.recipes.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
 
-        viewModel.searchRecipes(null)
+        viewModel.getRandomRecipes()
 
         searchIcon.setOnClickListener {
             val query = searchInput.text.toString()

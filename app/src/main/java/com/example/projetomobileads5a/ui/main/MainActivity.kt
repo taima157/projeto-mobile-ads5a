@@ -5,6 +5,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projetomobileads5a.R
 import com.example.projetomobileads5a.ui.home.HomeFragment
+import com.example.projetomobileads5a.ui.recipe.RecipeListFragment
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
         val fragment = when (position) {
             0 -> HomeFragment()
+            1 -> RecipeListFragment.newInstance("desserts")
+            2 -> RecipeListFragment.newInstance("pasta")
+            3 -> RecipeListFragment.newInstance("savory")
             else -> HomeFragment()
         }
 

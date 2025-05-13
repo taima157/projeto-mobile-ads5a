@@ -34,7 +34,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipe = recipes[position]
         holder.title.text = recipe.title
-        // Use Coil, Glide ou Picasso para carregar a imagem:
+
         Glide.with(holder.itemView).load(recipe.image).into(holder.image)
     }
 }
