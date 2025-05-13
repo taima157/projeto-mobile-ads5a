@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@android:color/black"
-        app:tabTextColor="@android:color/darker_gray"
-        app:tabIndicatorColor="#DB8213"
         android:paddingTop="20dp"
-        app:tabIconTint="#DB8213"
-        app:tabRippleColor="@android:color/transparent">
+        app:tabIconTint="@color/orange"
+        app:tabIndicatorColor="@color/orange"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@android:color/black"
+        app:tabTextColor="@android:color/darker_gray">
 
         <!-- Abas de texto -->
         <com.google.android.material.tabs.TabItem
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             android:id="@+id/tab_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Home" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_height="wrap_content"
+            android:id="@+id/tab_desserts"
             android:layout_width="wrap_content"
 
-            android:id="@+id/tab_desserts"
+            android:layout_height="wrap_content"
             android:text="Desserts" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             android:id="@+id/tab_pasta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Pasta" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             android:id="@+id/tab_savory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Savory" />
 
         <!-- Aba de ícone -->
         <com.google.android.material.tabs.TabItem
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             android:id="@+id/tab_favorite"
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:icon="@drawable/ic_favorite" />
 
     </com.google.android.material.tabs.TabLayout>
@@ -60,4 +59,4 @@
         android:layout_weight="1" />
 
 
-</LinearLayout >
+</LinearLayout>

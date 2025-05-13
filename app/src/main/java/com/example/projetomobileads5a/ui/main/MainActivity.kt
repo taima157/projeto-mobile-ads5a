@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projetomobileads5a.R
+import com.example.projetomobileads5a.ui.home.HomeFragment
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
