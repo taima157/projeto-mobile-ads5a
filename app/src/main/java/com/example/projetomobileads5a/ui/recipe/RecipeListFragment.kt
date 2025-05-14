@@ -1,5 +1,6 @@
 package com.example.projetomobileads5a.ui.recipe
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projetomobileads5a.R
-import com.example.projetomobileads5a.ui.home.HomeViewModel
 import com.example.projetomobileads5a.ui.home.RecipeAdapter
+import com.example.projetomobileads5a.ui.recipe_detail.RecipeDetailActivity
+import com.example.projetomobileads5a.ui.shared.RecipeSharedViewModel
 
 class RecipeListFragment : Fragment() {
 
-    private lateinit var viewModel: RecipeListViewModel
+    private lateinit var recipeViewModel: RecipeSharedViewModel
     private lateinit var adapter: RecipeAdapter
     private lateinit var recipeListFragment: RecyclerView
     private var categoryFilter: String? = null
@@ -25,20 +27,22 @@ class RecipeListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.recipe_list_fragment, container, false)
         recipeListFragment = view.findViewById(R.id.recipeListFragment)
 
-        adapter = RecipeAdapter()
+        adapter = RecipeAdapter { recipe ->
+            val intent = Intent(requireContext(), RecipeDetailActivity::class.java)
+            intent.putExtra("recipe", recipe)
+            startActivity(intent)
+        }
         recipeListFragment.layoutManager = LinearLayoutManager(requireContext())
         recipeListFragment.adapter = adapter
 
-        viewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
+        recipeViewModel = ViewModelProvider(this)[RecipeSharedViewModel::class.java]
 
-        viewModel.recipes.observe(viewLifecycleOwner) {
+        recipeViewModel.recipes.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
 
@@ -49,7 +53,7 @@ class RecipeListFragment : Fragment() {
 
     private fun fetchRecipesFromApi() {
         val query = categoryFilter ?: ""
-        viewModel.searchRecipes(query)
+        recipeViewModel.getRandomRecipesWithTags(query)
     }
 
     companion object {

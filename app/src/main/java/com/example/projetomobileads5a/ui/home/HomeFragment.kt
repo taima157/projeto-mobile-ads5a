@@ -1,5 +1,6 @@
 package com.example.projetomobileads5a.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projetomobileads5a.R
+import com.example.projetomobileads5a.ui.recipe_detail.RecipeDetailActivity
+import com.example.projetomobileads5a.ui.shared.RecipeSharedViewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: HomeViewModel
+    private lateinit var recipeViewModel: RecipeSharedViewModel
     private lateinit var adapter: RecipeAdapter
     private lateinit var recipeListView: RecyclerView
     private lateinit var searchInput: EditText
@@ -31,21 +34,25 @@ class HomeFragment : Fragment() {
         searchInput = view.findViewById(R.id.searchInput)
         searchIcon = view.findViewById(R.id.searchIcon)
 
-        adapter = RecipeAdapter()
+        adapter = RecipeAdapter{ recipe ->
+            val intent = Intent(requireContext(), RecipeDetailActivity::class.java)
+            intent.putExtra("recipe", recipe)
+            startActivity(intent)
+        }
         recipeListView.layoutManager = LinearLayoutManager(requireContext())
         recipeListView.adapter = adapter
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        recipeViewModel = ViewModelProvider(this)[RecipeSharedViewModel::class.java]
 
-        viewModel.recipes.observe(viewLifecycleOwner) {
+        recipeViewModel.recipes.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
 
-        viewModel.getRandomRecipes()
+        recipeViewModel.getRandomRecipes()
 
         searchIcon.setOnClickListener {
             val query = searchInput.text.toString()
-            viewModel.searchRecipes(query)
+            recipeViewModel.searchRecipes(query)
         }
 
         return view

@@ -2,6 +2,7 @@ package com.example.projetomobileads5a.ui.main
 
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projetomobileads5a.R
 import com.example.projetomobileads5a.ui.home.HomeFragment
@@ -16,13 +17,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        enableEdgeToEdge()
 
         navigation = findViewById(R.id.navigation)
         contentFrame = findViewById(R.id.contentFrame)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.contentFrame, HomeFragment())
-            .commit()
+        showTabContent(0)
 
         navigation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -44,8 +44,6 @@ class MainActivity : AppCompatActivity() {
             else -> HomeFragment()
         }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.contentFrame, fragment)
-            .commit()
+        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()
     }
 }

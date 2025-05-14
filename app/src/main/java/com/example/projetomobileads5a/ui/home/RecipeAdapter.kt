@@ -1,5 +1,6 @@
 package com.example.projetomobileads5a.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.projetomobileads5a.R
 import com.example.projetomobileads5a.data.model.Recipe
 
-class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
+class RecipeAdapter(
+    private val onItemClick: (Recipe) -> Unit
+) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
     private var recipes: List<Recipe> = listOf()
 
@@ -34,7 +37,10 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipe = recipes[position]
         holder.title.text = recipe.title
-
         Glide.with(holder.itemView).load(recipe.image).into(holder.image)
+
+        holder.itemView.setOnClickListener {
+            onItemClick(recipe)
+        }
     }
 }
