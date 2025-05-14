@@ -29,6 +29,7 @@ class RecipeSharedViewModel : ViewModel() {
     fun getRandomRecipes() {
         viewModelScope.launch {
             try {
+                Log.d("getRandomRecipes", "Chamando API")
                 val result = RetrofitInstance.api.getRandomRecipes()
                 _recipes.value = result.recipes
             } catch (e: Exception) {
@@ -41,6 +42,7 @@ class RecipeSharedViewModel : ViewModel() {
     fun getRandomRecipesWithTags(tags: String) {
         viewModelScope.launch {
             try {
+                Log.d("getRandomRecipesWithTags", "Chamando API")
                 val result = RetrofitInstance.api.getRandomRecipesWithTags(tags)
                 _recipes.value = result.recipes
             } catch (e: Exception) {

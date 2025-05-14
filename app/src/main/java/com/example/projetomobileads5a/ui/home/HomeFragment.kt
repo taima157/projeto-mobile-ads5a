@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.projetomobileads5a.R
 import com.example.projetomobileads5a.ui.recipe_detail.RecipeDetailActivity
 import com.example.projetomobileads5a.ui.shared.RecipeSharedViewModel
@@ -55,7 +56,17 @@ class HomeFragment : Fragment() {
             recipeViewModel.searchRecipes(query)
         }
 
+        setupSwipeRefresh(view)
+
         return view
+    }
+
+    private fun setupSwipeRefresh(view: View) {
+        val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshHome)
+        swipeRefresh?.setOnRefreshListener {
+            recipeViewModel.getRandomRecipes()
+            swipeRefresh.isRefreshing = false
+        }
     }
 
 }

@@ -11,6 +11,11 @@ import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var dessertsFragment: RecipeListFragment
+    private lateinit var pastaFragment: RecipeListFragment
+    private lateinit var savoryFragment: RecipeListFragment
+
     private lateinit var navigation: TabLayout
     private lateinit var contentFrame: FrameLayout
 
@@ -22,7 +27,13 @@ class MainActivity : AppCompatActivity() {
         navigation = findViewById(R.id.navigation)
         contentFrame = findViewById(R.id.contentFrame)
 
-        showTabContent(0)
+        homeFragment = HomeFragment()
+        dessertsFragment = RecipeListFragment.newInstance("desserts")
+        pastaFragment = RecipeListFragment.newInstance("pasta")
+        savoryFragment = RecipeListFragment.newInstance("savory")
+
+        supportFragmentManager.beginTransaction().add(R.id.contentFrame, homeFragment, "HOME")
+            .commit()
 
         navigation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -35,15 +46,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showTabContent(position: Int) {
+        val transaction = supportFragmentManager.beginTransaction()
 
-        val fragment = when (position) {
-            0 -> HomeFragment()
-            1 -> RecipeListFragment.newInstance("desserts")
-            2 -> RecipeListFragment.newInstance("pasta")
-            3 -> RecipeListFragment.newInstance("savory")
-            else -> HomeFragment()
+        supportFragmentManager.fragments.forEach {
+            transaction.hide(it)
         }
 
-        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()
+        val fragment = when (position) {
+            0 -> homeFragment
+            1 -> dessertsFragment
+            2 -> pastaFragment
+            3 -> savoryFragment
+            else -> homeFragment
+        }
+
+        if (!fragment.isAdded) {
+            transaction.add(R.id.contentFrame, fragment)
+        } else {
+            transaction.show(fragment)
+        }
+
+        transaction.commit()
     }
 }

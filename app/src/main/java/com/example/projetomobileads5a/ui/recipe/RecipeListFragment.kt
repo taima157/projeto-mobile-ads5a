@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.projetomobileads5a.R
 import com.example.projetomobileads5a.ui.home.RecipeAdapter
 import com.example.projetomobileads5a.ui.recipe_detail.RecipeDetailActivity
@@ -47,6 +48,7 @@ class RecipeListFragment : Fragment() {
         }
 
         fetchRecipesFromApi()
+        setupSwipeRefresh(view)
 
         return view
     }
@@ -54,6 +56,14 @@ class RecipeListFragment : Fragment() {
     private fun fetchRecipesFromApi() {
         val query = categoryFilter ?: ""
         recipeViewModel.getRandomRecipesWithTags(query)
+    }
+
+    private fun setupSwipeRefresh(view: View) {
+        val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        swipeRefresh?.setOnRefreshListener {
+            fetchRecipesFromApi()
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     companion object {
