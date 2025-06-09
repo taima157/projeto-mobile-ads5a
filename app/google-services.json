@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "38589422164",
+    "project_id": "projeto-mobile-ads5a",
+    "storage_bucket": "projeto-mobile-ads5a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38589422164:android:29ecdc35afde750e302bc1",
+        "android_client_info": {
+          "package_name": "com.example.projetomobileads5a"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6OjdM2dZEXXs5jpKjgRyAbHOEOyMWujQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
