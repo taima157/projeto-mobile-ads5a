@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.projetomobileads5a.R
@@ -19,7 +21,6 @@ import com.google.firebase.auth.auth
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +34,13 @@ class LoginActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val editEmail = findViewById<EditText>(R.id.editEmail)
-        val editSenha = findViewById<EditText>(R.id.editSenha)
+        val loginEmail = findViewById<EditText>(R.id.loginEmail)
+        val loginPassword = findViewById<EditText>(R.id.loginPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
+        val textRegister = findViewById<TextView>(R.id.textRegister)
 
         btnLogin.setOnClickListener {
-            auth.signInWithEmailAndPassword(editEmail.text.toString(), editSenha.text.toString())
+            auth.signInWithEmailAndPassword(loginEmail.text.toString(), loginPassword.text.toString())
                 .addOnCompleteListener(this) { task ->
 
                     if (task.isSuccessful) {
@@ -51,10 +53,12 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "Erro no login: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }
                 }
-
         }
 
-
+        textRegister.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

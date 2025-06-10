@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.projetomobileads5a.R
@@ -29,29 +31,33 @@ class SignupActivity : AppCompatActivity() {
             insets
         }
 
-
         auth = Firebase.auth
 
-//        val editEmail = findViewById<EditText>(R.id.editEmail)
-//        val editSenha = findViewById<EditText>(R.id.editSenha)
-//        val btnLogin = findViewById<Button>(R.id.btnLogin)
-//
-//        btnLogin.setOnClickListener {
-//            auth.createUserWithEmailAndPassword(editEmail.text.toString(), editSenha.text.toString())
-//                .addOnCompleteListener(this) { task ->
-//
-//                    if (task.isSuccessful) {
-//                        Log.d("USER", "createUserWithEmail:success")
-//
-//                        val intent = Intent(this, MainActivity::class.java)
-//                        startActivity(intent)
-//                        finish()
-//                    } else {
-//                        Toast.makeText(this, "Erro no login: ${task.exception?.message}", Toast.LENGTH_LONG).show()
-//                    }
-//                }
-//
-//        }
+        val signupEmail = findViewById<EditText>(R.id.signupEmail)
+        val signupPassword = findViewById<EditText>(R.id.signupPassword)
+        val btnLogin = findViewById<Button>(R.id.btnSignup)
+        val textLogin = findViewById<TextView>(R.id.textLogin)
 
+        btnLogin.setOnClickListener {
+            auth.createUserWithEmailAndPassword(signupEmail.text.toString(), signupPassword.text.toString())
+                .addOnCompleteListener(this) { task ->
+
+                    if (task.isSuccessful) {
+                        Log.d("USER", "createUserWithEmail:success")
+
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Erro ao criar conta: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
+        }
+
+        textLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
+
 }
